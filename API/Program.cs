@@ -1,9 +1,5 @@
-using API.Data;
-using API.Interfaces;
-using API.Services;
+using API.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,13 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<DatabaseContext>(opt => 
-{
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-});
-builder.Services.AddCors();
-
-builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();
 
@@ -27,6 +18,9 @@ app.UseCors(builder =>
             .AllowAnyMethod()
             .WithOrigins("https://localhost:4200")
             );
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
