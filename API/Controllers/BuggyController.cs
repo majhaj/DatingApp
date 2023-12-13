@@ -11,8 +11,8 @@ namespace API.Controllers
 {
     public class BuggyController : BaseApiController
     {
-        public DatabaseContext _context { get; }
-        public BuggyController(DatabaseContext context)
+        public DataContext _context { get; }
+        public BuggyController(DataContext context)
         {
             _context = context;
             

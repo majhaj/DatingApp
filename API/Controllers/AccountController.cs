@@ -14,11 +14,11 @@ namespace API.Controllers
 {
     public class AccountController : BaseApiController
     {
-        private readonly DatabaseContext _context;
+        private readonly DataContext _context;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
-        public AccountController(DatabaseContext context, 
+        public AccountController(DataContext context, 
                                 ITokenService tokenService,
                                 IMapper mapper)
         {
